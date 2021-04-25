@@ -13,7 +13,8 @@ def create_app(config_name):
     CORS(app)
 
     # App routes
-    from .routes import auth
+    from .routes import auth, dashboard
     app.register_blueprint(auth.bp)
+    app.register_blueprint(dashboard.bp)
 
     return app

@@ -6,7 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    
     <title>Stock Analyser</title>
     {% endblock %}
 </head>
@@ -17,43 +23,58 @@
     </nav>
     <div class="row">
         <div class="col m-4">
-            <h1>Find Stocks</h1>
             <form>
-                <div class="mb-2">
-                    <input type="int">
-                </div>
-                <div class="mb-2">
-                    <select class="custom-select">
-                        <option selected="">Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <div class="mb-2">
-                    <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
-                </div>
-                <script>
-                    $(function() {
-                        $('input[name="daterange"]').daterangepicker({
-                            opens: 'left'
-                        }, function(start, end, label) {
-                            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                <fieldset>
+                    <legend>Filter Stocks</legend>
+                    <div class="form-group">
+                        <label for="tickerInput">TICKER</label>
+                        <input type="text" class="form-control" id="ticker" placeholder="Enter TICKER">
+                    </div>
+                    <div class="form-group">
+                        <label for="indicator">Indicator</label>
+                        <input type="text" class="form-control" id="indicator" placeholder="Indicator">
+                    </div>
+                    <div class="form-group">
+                        <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                            <span></span> <b class="caret"></b>
+                        </div>
+                        
+                        <script type="text/javascript">
+                        $(function() {
+                        
+                            var start = moment().subtract(29, 'days');
+                            var end = moment();
+                        
+                            function cb(start, end) {
+                                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                            }
+                        
+                            $('#reportrange').daterangepicker({
+                                startDate: start,
+                                endDate: end,
+                                ranges: {
+                                   'Today': [moment(), moment()],
+                                   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                   'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                                }
+                            }, cb);
+                        
+                            cb(start, end);
+                            
                         });
-                    });
-                </script>
-            
-                
+                        </script>
+                    </div>
+                    <button class="btn btn-primary">Filter</button>
+                </fieldset>
             </form>
         </div>
-        <div class="col">
-            <h1>Column 1</h1>
-        </div>
+        <!-- <div class="col m-4">
+        </div> -->
     </div>
     {% endblock %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 </body>
 </html>
