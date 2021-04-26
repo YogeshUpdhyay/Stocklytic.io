@@ -5,24 +5,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Required stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
-    
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
     <!-- Include Required Prerequisites -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-    
+
     <title>Stock Analyser</title>
+    
     {% endblock %}
 </head>
 <body>
     {% block body %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">Stock Analyser</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <img 
+                    src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
+                    style="vertical-align: middle;
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;"
+                />
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">Yogesh Upadhyay</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Accounts</a>
+                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="#">Pricing</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            </li>
+        </ul>
     </nav>
     <div class="row">
-        <div class="col m-4">
+        <div class="col-6 m-4">
             <form>
                 <fieldset>
                     <legend>Filter Stocks</legend>
@@ -72,8 +97,16 @@
                 </fieldset>
             </form>
         </div>
-        <!-- <div class="col m-4">
-        </div> -->
+        <div class="col m-4">
+            <div id="tester" style="width:600px;height:250px;"></div>
+            <script>
+                TESTER = document.getElementById('tester');
+                Plotly.newPlot( TESTER, [{
+                x: [1, 2, 3, 4, 5],
+                y: [1, 2, 4, 8, 16] }], {
+                margin: { t: 0 } } );
+            </script>
+        </div>
     </div>
     {% endblock %}
 </body>
