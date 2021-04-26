@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Required stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+    <!-- Include Required Prerequisites -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <script src="/static/index.js"></script>
+    
+
+    <title>Stock Analyser</title>
+    
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Stock Analyser</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <img 
+                    src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
+                    style="vertical-align: middle;
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;"
+                />
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">Yogesh Upadhyay</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Accounts</a>
+                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="#">Pricing</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="col">
+
+        <div class="row m-4">
+            <h4>Your Stocks</h4>
+        </div>
+
+        <div class="row m-4 no-gutters">
+            <div class="col">
+                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
+                    <legend class="card-header">Stock Name</legend>
+                    <div class="card-body">
+                        <img 
+                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
+                            style="vertical-align: middle;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;"
+                        />
+                        <h5 class="card-title">Special title treatment</h5>
+                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col">
+                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
+                    <legend class="card-header">Stock Name</legend>
+                    <div class="card-body">
+                        <img 
+                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
+                            style="vertical-align: middle;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;"
+                        />
+                        <h5 class="card-title">Special title treatment</h5>
+                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
+                    <legend class="card-header">Stock Name</legend>
+                    <div class="card-body">
+                        <img 
+                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
+                            style="vertical-align: middle;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;"
+                        />
+                        <h5 class="card-title">Special title treatment</h5>
+                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
+                    <legend class="card-header">Stock Name</legend>
+                    <div class="card-body">
+                        <img 
+                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
+                            style="vertical-align: middle;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;"
+                        />
+                        <h5 class="card-title">Special title treatment</h5>
+                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col m-4">
+
+            <h4>Filter Stocks</h4>
+
+            <div class="row">
+                <div class="col">
+                    <label for="tickerInput">TICKER</label>
+                </div>
+                <div class="col">
+                    <label for="indicator">Indicator</label>
+                </div>
+                <div class="col">
+                    <label for="daterange">Date Range</label>
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col">
+                    <input type="text" id="ticker" class="form-control" placeholder="Enter TICKER">
+                </div>
+                <div class="col">
+                    <input type="text" id="indicator" class="form-control" placeholder="Indicator">
+                </div>
+                <div class="col">
+                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                        <span></span> <b class="caret"></b>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row m-4" id="graph-object"></div>
+
+    </div>
+    {% endblock %}
+</body>
+</html>
