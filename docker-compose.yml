@@ -1,0 +1,30 @@
+version: '3'
+
+services: 
+
+  # backend app
+  app:
+    build: .
+    image: yogeshh2021/stock-analyzer:v1
+    command: python main.py
+    volumes:
+      - .:/app
+    ports: 
+      - 5055:5055
+
+  # database
+  db:
+    image: postgres:9.6.20-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: root
+      POSTGRES_DB: StockAnalyzerDB
+    volumes: 
+      - ./postgres-data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
