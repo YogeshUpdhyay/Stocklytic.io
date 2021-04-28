@@ -5,9 +5,12 @@ from config import config
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
+# Base = None
+global Base
+
 def dbInit():
-    engine = create_engine('postgresql://root:example@db:', echo=True)
-    Base = declarative_base()
+    engine = create_engine('postgresql://root:example@db:5432/StockAnalyzerDB', echo=True)
+    Base = declarative_base()  
     Base.metadata.create_all(engine)
 
 def create_app(config_name):
@@ -20,6 +23,9 @@ def create_app(config_name):
     )
     app.config.from_object(appconf)
     CORS(app)
+
+    # DB configuration
+    dbInit()
 
     # App routes
     from .routes import auth, dashboard, stock
