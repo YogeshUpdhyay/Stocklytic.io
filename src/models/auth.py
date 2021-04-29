@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
-from src import Base
 from passlib.context import CryptContext
+from src import Base
 
 class User(Base):
     __tablename__ = 'users'

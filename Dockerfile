@@ -1,12 +1,13 @@
-FROM python:3.9-slim
+# pull official base image
+FROM python:3.9
 
-RUN apt-get install build-dep -y python-psycopg2
+# set work directory
+WORKDIR /code
 
-WORKDIR /app
-
+# install dependencies
 COPY requirements.txt .
-
 RUN pip install -r requirements.txt
 
+# copy project
 ADD . .
-
+EXPOSE 5055

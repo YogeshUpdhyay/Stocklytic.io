@@ -6,12 +6,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
 # Base = None
-global Base
+
 
 def dbInit():
     engine = create_engine('postgresql://root:example@db:5432/StockAnalyzerDB', echo=True)
-    Base = declarative_base()  
-    Base.metadata.create_all(engine)
+
 
 def create_app(config_name):
     appconf = config[config_name]
