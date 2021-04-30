@@ -8,7 +8,7 @@
 
     <!-- Required stylesheets -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
 
     <!-- Include Required Prerequisites -->
@@ -31,13 +31,14 @@
                 <img 
                     src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
                     style="vertical-align: middle;
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 50%;"
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 8px;
+                    background-color: white;"
                 />
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">Yogesh Upadhyay</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" style="font-size: 14px;">Yogesh Upadhyay</a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Accounts</a>
                   <a class="dropdown-item" href="#">Settings</a>
@@ -52,81 +53,64 @@
     <div class="col">
 
         <div class="row m-4 justify-content-between">
-            <h4>Your Stocks</h4>
+            <h3>Your Stocks</h3>
             <button type="button" class="btn btn-success">Add</button>
         </div>
 
-        <div class="row m-4 no-gutters">
-            
-            <div class="col">
-                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                    <legend class="card-header">Stock Name</legend>
-                    <div class="card-body">
-                        <img 
-                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
-                            style="vertical-align: middle;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;"
-                        />
-                        <h5 class="card-title">Special title treatment</h5>
-                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                    </div>
+        {% for row in stocks|batch(4) %}
+            <div class="row m-4 no-gutters">
+                {% for stock in row %}
+                <div class="col">
+                    <a href="/stock/{{ stock.id }}" style="text-decoration: none;">
+                        <div class="card text-black bg-secondary m-3" style="width: 15rem; height: 15rem;">
+                            <div class="card-body">
+                                {% if stock.imageUrl %}
+                                <img 
+                                    src={{ stock.imageUrl }} 
+                                    alt={{ stock.companyShortName[0] }}
+                                    style="vertical-align: middle;
+                                    width: 50px;
+                                    height: 50px;
+                                    margin: 10px;"
+                                />
+                                {% else %}
+                                <div
+                                    style="width: 50px;
+                                    height: 50px;
+                                    font-size: 16px;
+                                    color: white;
+                                    background-image: url(//assets-netstorage.groww.in/website-assets/prod/1.5.8/build/client/images/dottedBgImg.49090de7.png);
+                                    background-size: contain;
+                                    font-weight: 700;
+                                    border: 1px solid var(--border);
+                                    overflow: hidden;
+                                    display: flex;
+                                    margin: 10px;
+                                    align-items: center;
+                                    justify-content: center;"
+                                >
+                                {{ stock.companyShortName[0] }}
+                                </div>
+                                {% endif %}
+                                <h4 style="margin: 10px; color: black;">{{ stock.companyShortName }}</h4>
+                                <h5 class="card-title" style="margin: 10px; color: black;">&#8377;{{ stock.closePrice }}</h5>
+                                {% if stock.dayChange|float < 0.0 %} 
+                                    <h6 class="card-subtitle" style="margin: 10px; color: red;">
+                                        {{'%0.2f'| format(stock.dayChange|float)}} ({{'%0.2f'| format(stock.dayChangePerc|float)}}%)
+                                    </h6>
+                                {% else %}
+                                    <h6 class="card-subtitle" style="margin: 10px; color: green;">
+                                        {{'%0.2f'| format(stock.dayChange|float)}} ({{'%0.2f'| format(stock.dayChangePerc|float)}}%)
+                                    </h6>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    
                 </div>
+                {% endfor %}
             </div>
-            
-            <div class="col">
-                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                    <legend class="card-header">Stock Name</legend>
-                    <div class="card-body">
-                        <img 
-                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
-                            style="vertical-align: middle;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;"
-                        />
-                        <h5 class="card-title">Special title treatment</h5>
-                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                    <legend class="card-header">Stock Name</legend>
-                    <div class="card-body">
-                        <img 
-                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
-                            style="vertical-align: middle;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;"
-                        />
-                        <h5 class="card-title">Special title treatment</h5>
-                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                    <legend class="card-header">Stock Name</legend>
-                    <div class="card-body">
-                        <img 
-                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
-                            style="vertical-align: middle;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;"
-                        />
-                        <h5 class="card-title">Special title treatment</h5>
-                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        {% endfor %}
 
     </div>
     {% endblock %}
