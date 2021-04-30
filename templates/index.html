@@ -31,9 +31,10 @@
                 <img 
                     src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
                     style="vertical-align: middle;
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 50%;"
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 8px;
+                    background-color: white;"
                 />
             </li>
             <li class="nav-item dropdown">
@@ -63,13 +64,34 @@
                     <a href="/stock/{{ stock.id }}" style="text-decoration: none;">
                         <div class="card text-black bg-secondary m-3" style="width: 15rem; height: 15rem;">
                             <div class="card-body">
+                                {% if stock.imageUrl %}
                                 <img 
                                     src={{ stock.imageUrl }} 
+                                    alt={{ stock.companyShortName[0] }}
                                     style="vertical-align: middle;
                                     width: 50px;
                                     height: 50px;
                                     margin: 10px;"
                                 />
+                                {% else %}
+                                <div
+                                    style="width: 50px;
+                                    height: 50px;
+                                    font-size: 16px;
+                                    color: white;
+                                    background-image: url(//assets-netstorage.groww.in/website-assets/prod/1.5.8/build/client/images/dottedBgImg.49090de7.png);
+                                    background-size: contain;
+                                    font-weight: 700;
+                                    border: 1px solid var(--border);
+                                    overflow: hidden;
+                                    display: flex;
+                                    margin: 10px;
+                                    align-items: center;
+                                    justify-content: center;"
+                                >
+                                {{ stock.companyShortName[0] }}
+                                </div>
+                                {% endif %}
                                 <h4 style="margin: 10px; color: black;">{{ stock.companyShortName }}</h4>
                                 <h5 class="card-title" style="margin: 10px; color: black;">&#8377;{{ stock.closePrice }}</h5>
                                 {% if stock.dayChange|float < 0.0 %} 
