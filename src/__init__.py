@@ -2,15 +2,14 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from config import config
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from flask_sqlalchemy import SQLAlchemy
 
-# Base = None
+db = SQLAlchemy()
 
-
-def dbInit():
-    engine = create_engine('postgresql://root:example@db:5432/StockAnalyzerDB', echo=True)
-
+def dbInit(app):
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
 def create_app(config_name):
     appconf = config[config_name]
@@ -24,7 +23,7 @@ def create_app(config_name):
     CORS(app)
 
     # DB configuration
-    dbInit()
+    dbInit(app)
 
     # App routes
     from .routes import auth, dashboard, stock
