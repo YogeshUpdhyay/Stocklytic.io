@@ -56,77 +56,54 @@
             <button type="button" class="btn btn-success">Add</button>
         </div>
 
+        {% for stock in stocks %}
+            {% if loop.index%3 == 0 %}
+                <h4>{{loop.index}}</h4>
+                <div class="row m-4 no-gutters">
+            {% endif %}
+                <div class="col">
+                    <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
+                        <h4 class="card-header">{{ stock.companyShortName }}</h4>
+                        <div class="card-body">
+                            <img 
+                                src={{ stock.imageUrl }} 
+                                style="vertical-align: middle;
+                                width: 50px;
+                                height: 50px;"
+                            />
+                            <h5 class="card-title">{{loop.index}}</h5>
+                            <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                        </div>
+                    </div>
+                </div>
+            {% if loop.index%3 == 0 %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for i in range( stocks | length ) %}
         <div class="row m-4 no-gutters">
             
-            <div class="col">
-                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                    <legend class="card-header">Stock Name</legend>
-                    <div class="card-body">
-                        <img 
-                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
-                            style="vertical-align: middle;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;"
-                        />
-                        <h5 class="card-title">Special title treatment</h5>
-                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+            {% for j in range(i, i+4) %}
+                <div class="col">
+                    <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
+                        <h4 class="card-header">{{ stocks[i].companyShortName }}</h4>
+                        <div class="card-body">
+                            <img 
+                                src={{ stocks[i].imageUrl }} 
+                                style="vertical-align: middle;
+                                width: 50px;
+                                height: 50px;"
+                            />
+                            <h5 class="card-title">Special title treatment</h5>
+                            <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col">
-                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                    <legend class="card-header">Stock Name</legend>
-                    <div class="card-body">
-                        <img 
-                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
-                            style="vertical-align: middle;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;"
-                        />
-                        <h5 class="card-title">Special title treatment</h5>
-                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                    <legend class="card-header">Stock Name</legend>
-                    <div class="card-body">
-                        <img 
-                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
-                            style="vertical-align: middle;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;"
-                        />
-                        <h5 class="card-title">Special title treatment</h5>
-                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                    <legend class="card-header">Stock Name</legend>
-                    <div class="card-body">
-                        <img 
-                            src="https://www.signivis.com/img/custom/avatars/member-avatar-01.png"  
-                            style="vertical-align: middle;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;"
-                        />
-                        <h5 class="card-title">Special title treatment</h5>
-                        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
+        {% endfor %}
 
     </div>
     {% endblock %}
