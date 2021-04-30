@@ -17,6 +17,7 @@ class TestConfig(Config):
     SWAGGER_UI_DOC_EXPANSION = 'list'
     RESTPLUS_VALIDATE =True
     RESTPLUS_MASK_SWAGGER = False
+    SQLALCHEMY_DATABASE_URI = "postgresql://root:example@db/StockAnalyzerDB"
 
 class Production(Config):
     pass
