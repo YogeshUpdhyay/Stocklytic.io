@@ -3,7 +3,8 @@ from flask import Blueprint, render_template
 bp = Blueprint("dashboard", __name__)
 
 stocks = [
-    {
+    {   
+        "id": 1,
         "companyShortName": "Indian Oil Corp.",
         "companyName": "Indian Oil Corporation",
         "imageUrl": "https://assets-netstorage.groww.in/stock-assets/logos/INE242A01010.png",
@@ -89,6 +90,4 @@ stocks = [
 
 @bp.route("/")
 def login():
-    offset = (len(stocks) // 4) + 1
-    print(offset)
-    return render_template("index.html", stocks=stocks, offset=offset)
+    return render_template("index.html", stocks=stocks)

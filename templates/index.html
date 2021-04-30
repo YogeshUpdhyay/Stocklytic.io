@@ -8,7 +8,7 @@
 
     <!-- Required stylesheets -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/materia/bootstrap.min.css" integrity="sha384-B4morbeopVCSpzeC1c4nyV0d0cqvlSAfyXVfrPJa25im5p+yEN/YmhlgQP/OyMZD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
 
     <!-- Include Required Prerequisites -->
@@ -52,57 +52,42 @@
     <div class="col">
 
         <div class="row m-4 justify-content-between">
-            <h4>Your Stocks</h4>
+            <h3>Your Stocks</h3>
             <button type="button" class="btn btn-success">Add</button>
         </div>
 
-        {% for stock in stocks %}
-            {% if loop.index%3 == 0 %}
-                <h4>{{loop.index}}</h4>
-                <div class="row m-4 no-gutters">
-            {% endif %}
+        {% for row in stocks|batch(4) %}
+            <div class="row m-4 no-gutters">
+                {% for stock in row %}
                 <div class="col">
-                    <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                        <h4 class="card-header">{{ stock.companyShortName }}</h4>
-                        <div class="card-body">
-                            <img 
-                                src={{ stock.imageUrl }} 
-                                style="vertical-align: middle;
-                                width: 50px;
-                                height: 50px;"
-                            />
-                            <h5 class="card-title">{{loop.index}}</h5>
-                            <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                    <a href="/stock/{{ stock.id }}" style="text-decoration: none;">
+                        <div class="card text-black bg-secondary m-3" style="width: 15rem; height: 15rem;">
+                            <div class="card-body">
+                                <img 
+                                    src={{ stock.imageUrl }} 
+                                    style="vertical-align: middle;
+                                    width: 50px;
+                                    height: 50px;
+                                    margin: 10px;"
+                                />
+                                <h4 style="margin: 10px; color: black;">{{ stock.companyShortName }}</h4>
+                                <h5 class="card-title" style="margin: 10px; color: black;">&#8377;{{ stock.closePrice }}</h5>
+                                {% if stock.dayChange|float < 0.0 %} 
+                                    <h6 class="card-subtitle" style="margin: 10px; color: red;">
+                                        {{'%0.2f'| format(stock.dayChange|float)}} ({{'%0.2f'| format(stock.dayChangePerc|float)}}%)
+                                    </h6>
+                                {% else %}
+                                    <h6 class="card-subtitle" style="margin: 10px; color: green;">
+                                        {{'%0.2f'| format(stock.dayChange|float)}} ({{'%0.2f'| format(stock.dayChangePerc|float)}}%)
+                                    </h6>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    </a>
+                    
                 </div>
-            {% if loop.index%3 == 0 %}
-                </div>
-            {% endif %}
-        {% endfor %}
-
-        {% for i in range( stocks | length ) %}
-        <div class="row m-4 no-gutters">
-            
-            {% for j in range(i, i+4) %}
-                <div class="col">
-                    <div class="card text-black bg-light mb-3" style="max-width: 15rem;">
-                        <h4 class="card-header">{{ stocks[i].companyShortName }}</h4>
-                        <div class="card-body">
-                            <img 
-                                src={{ stocks[i].imageUrl }} 
-                                style="vertical-align: middle;
-                                width: 50px;
-                                height: 50px;"
-                            />
-                            <h5 class="card-title">Special title treatment</h5>
-                            <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-
-        </div>
+                {% endfor %}
+            </div>
         {% endfor %}
 
     </div>
