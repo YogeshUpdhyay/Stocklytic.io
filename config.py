@@ -4,6 +4,7 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'i5Nvj87eblsuzqWVjLGA'
     RESTPLUS_MASK_SWAGGER = False
     TEMPLATE_DIR = "templates"
+    STATIC_DIR = "static"
 
     @staticmethod
     def init_app(app):

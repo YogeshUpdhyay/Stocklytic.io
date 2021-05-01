@@ -90,4 +90,7 @@ stocks = [
 
 @bp.route("/")
 def login():
-    return render_template("index.html", stocks=stocks)
+    current_user = {
+        "username": "Yogesh Upadhyay"
+    }
+    return render_template("index.html", stocks=stocks, current_user=current_user)
