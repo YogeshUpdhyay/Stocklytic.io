@@ -8,7 +8,7 @@ bp = Blueprint("user", __name__)
 def login():
     if request.method == "GET":
         form = LoginForm()
-        return render_template("accounts/login.html", form=form)
+        return render_template("login.html", form=form)
     elif request.method == "POST":
         return(request.form.get("password"))
 
@@ -16,7 +16,7 @@ def login():
 @bp.route("/register")
 def register():
     form = CreateAccountForm()
-    return render_template("accounts/register.html", form=form)
+    return render_template("register.html", form=form)
 
 @bp.route("/logout")
 def logout():

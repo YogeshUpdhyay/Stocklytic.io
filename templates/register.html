@@ -27,16 +27,22 @@
             </div>
           </div>
           <div class="card-body px-lg-5 py-lg-5">
+            <span class="mb-0 text-muted text-center">
+              {% if msg %}
+                  {{ msg | safe }}
+              {% endif %} 
+            </span>
             <div class="text-center text-muted mb-4">
               <small>Or sign up with credentials</small>
             </div>
             <form role="form">
+              {{ form.hidden_tag() }}
               <div class="form-group">
                 <div class="input-group input-group-merge input-group-alternative mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Name" type="text">
+                  {{ form.username(placeholder="Username", class="form-control") }}
                 </div>
               </div>
               <div class="form-group">
@@ -44,7 +50,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Email" type="email">
+                  {{ form.email(placeholder="Email", class="input form-control", type="email") }}
                 </div>
               </div>
               <div class="form-group">
@@ -52,18 +58,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Password" type="password">
-                </div>
-              </div>
-              <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>
-              <div class="row my-4">
-                <div class="col-12">
-                  <div class="custom-control custom-control-alternative custom-checkbox">
-                    <input class="custom-control-input" id="customCheckRegister" type="checkbox">
-                    <label class="custom-control-label" for="customCheckRegister">
-                      <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
-                    </label>
-                  </div>
+                  {{ form.password(placeholder="Password", class="form-control", type="password") }}
                 </div>
               </div>
               <div class="text-center">
@@ -74,10 +69,9 @@
         </div>
         <div class="row mt-3">
           <div class="col-6">
-            <a href="/login.html" class="text-light"><small>Login</small></a>
+            <a href="{{ url_for('user.login') }}" class="text-light"><small>Login</small></a>
           </div>
-          <div class="col-6 text-right">
-            <a href="/" class="text-light"><small>Dashboard</small></a>
+          <div class="col-6">
           </div>
         </div>
 
