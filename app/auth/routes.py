@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
-from ..models.auth import User
-from ..forms.auth import LoginForm, CreateAccountForm
+from .models import User
+from .forms import LoginForm, CreateAccountForm
 
 bp = Blueprint("user", __name__)
 
@@ -11,7 +11,6 @@ def login():
         return render_template("login.html", form=form)
     elif request.method == "POST":
         return(request.form.get("password"))
-
 
 @bp.route("/register")
 def register():
