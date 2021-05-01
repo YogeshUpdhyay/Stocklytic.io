@@ -16,8 +16,7 @@ def create_app(config_name):
     app = Flask(
         __name__,
         template_folder=os.path.join(os.getcwd(), appconf.TEMPLATE_DIR),
-        static_folder=os.path.join(os.getcwd(), appconf.TEMPLATE_DIR),
-        static_url_path="/static"
+        static_folder=os.path.join(os.getcwd(), appconf.STATIC_DIR),
     )
     app.config.from_object(appconf)
     CORS(app)

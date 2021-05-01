@@ -32,19 +32,13 @@
                 {{ form.hidden_tag() }}                    
 
                 <div class="input-group mb-3">
-                    {{ form.username(placeholder="Username", class="form-control") }}
+                    {{ form.email(placeholder="Email", class="form-control") }}
                 </div>
                 
                 <div class="input-group mb-4">
                     {{ form.password(placeholder="Password", class="form-control", type="password") }}
                 </div>
                 
-                <div class="form-group text-left">
-                    <div class="checkbox checkbox-fill d-inline">
-                        <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
-                        <label for="checkbox-fill-a1" class="cr"> Save Details</label>
-                    </div>
-                </div>
                 <button type="submit" name="login" class="btn btn-primary shadow-2 mb-4">Login</button>
 
             </form>
@@ -53,10 +47,9 @@
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="{{ url_for('base_blueprint.register') }}" class="text-light"><small>Create Account</small></a>
+              <a href="{{ url_for('user.register') }}" class="text-light"><small>Create Account</small></a>
             </div>
-            <div class="col-6 text-right">
-              <a target="_blank" href="https://www.creative-tim.com/support" class="text-light"><small>Get Support</small></a>
+            <div class="col-6">
             </div>
           </div>
 

@@ -5,7 +5,7 @@ from wtforms.validators import InputRequired, Email, DataRequired
 ## login and registration
 
 class LoginForm(FlaskForm):
-    email = TextField('Email' , id='email_login' , validators=[DataRequired()])
+    email    = TextField('Email' , id='email_login' , validators=[DataRequired()])
     password = PasswordField('Password', id='pwd_login' , validators=[DataRequired()])
 
 class CreateAccountForm(FlaskForm):
