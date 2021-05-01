@@ -3,8 +3,9 @@ from jinja2 import TemplateNotFound
 
 bp = Blueprint("dashboard", __name__)
 
+
 @bp.route("/")
-def login():
+def index():
     current_user = {
         "username": "Yogesh Upadhyay"
     }
