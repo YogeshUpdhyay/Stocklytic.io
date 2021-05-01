@@ -26,44 +26,46 @@
               </div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
+              <span class="mb-4 text-muted text-center">
+                {% if msg %}
+                  {{ msg | safe }}
+                {% endif %} 
+              </span>
               <div class="text-center text-muted mb-4">
                 <small>Or sign in with credentials</small>
               </div>
-              <form role="form">
+              <form role="form" method="post" action="">
+
+                {{ form.hidden_tag() }} 
+
                 <div class="form-group mb-3">
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Email" type="email">
+                    {{ form.email(placeholder="Email", class="form-control") }}
                   </div>
                 </div>
+                
                 <div class="form-group">
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Password" type="password">
+                    {{ form.password(placeholder="Password", class="form-control", type="password") }}
                   </div>
                 </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Remember me</span>
-                  </label>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4">Sign in</button>
-                </div>
+                
+                <button type="submit" name="login" class="btn btn-primary shadow-2 mb-4 center">Sign In</button>
+
               </form>
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="/register.html" class="text-light"><small>Register</small></a>
+              <a href="{{ url_for('user.register') }}" class="text-light"><small>Register</small></a>
             </div>
-            <div class="col-6 text-right">
-              <a href="/" class="text-light"><small>Dashboard</small></a>
+            <div class="col-6">
             </div>
           </div>
         </div>
