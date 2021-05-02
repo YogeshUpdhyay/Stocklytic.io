@@ -27,15 +27,17 @@
             </div>
           </div>
           <div class="card-body px-lg-5 py-lg-5">
-            <span class="mb-0 text-muted text-center">
-              {% if msg %}
-                  {{ msg | safe }}
-              {% endif %} 
-            </span>
             <div class="text-center text-muted mb-4">
               <small>Or sign up with credentials</small>
             </div>
-            <form role="form">
+
+            {% if msg %}
+            <div class="alert alert-warning" role="alert"> 
+              <span class="alert-inner--text">{{ msg | safe }}</span>
+            </div>
+            {% endif %} 
+            
+            <form role="form" action="{{ url_for('user.register') }}" method="POST">
               {{ form.hidden_tag() }}
               <div class="form-group">
                 <div class="input-group input-group-merge input-group-alternative mb-3">
@@ -62,7 +64,7 @@
                 </div>
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-primary mt-4">Create account</button>
+                <button type="submit" class="btn btn-primary mt-4">Create account</button>
               </div>
             </form>
           </div>

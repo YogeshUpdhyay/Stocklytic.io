@@ -1,14 +1,12 @@
 from flask import Blueprint, render_template, request
 from jinja2 import TemplateNotFound
+from flask_login import current_user
 
 bp = Blueprint("dashboard", __name__)
 
 
 @bp.route("/")
 def index():
-    current_user = {
-        "username": "Yogesh Upadhyay"
-    }
     return render_template("index.html", current_user=current_user)
 
 @bp.route('/<template>')
@@ -16,18 +14,14 @@ def route_template(template):
 
     try:
 
-        current_user = {
-            "username": "Yogesh Upadhyay"
-        }
-
         if not template.endswith( '.html' ):
             template += '.html'
 
         # Detect the current page
-        segment = get_segment( request )
+        segment = get_segment(request)
 
         # Serve the file (if exists) from app/templates/FILE.html
-        return render_template( template, segment=segment, current_user=current_user )
+        return render_template(template, segment=segment, current_user=current_user)
 
     except TemplateNotFound:
         return render_template('page-404.html'), 404
