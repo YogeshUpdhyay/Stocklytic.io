@@ -21,6 +21,7 @@ def dbInit(app):
         db.session.remove()
 
 def loginManager(app):
+    # intializing login manager
     login_manager.init_app(app)
 
 def create_app(config_name):
@@ -39,10 +40,13 @@ def create_app(config_name):
     # configuring database
     dbInit(app)
 
+    # initializing login manager
+    loginManager(app)
+
     # registering blueprints
-    from .routes import auth, dashboard, stock
-    app.register_blueprint(auth.bp)
-    app.register_blueprint(dashboard.bp)
-    app.register_blueprint(stock.bp)
+    from .auth.routes import bp as auth_blueprint
+    from .dashboard.routes import bp as dash_blueprint
+    app.register_blueprint(auth_blueprint)
+    app.register_blueprint(dash_blueprint)
 
     return app

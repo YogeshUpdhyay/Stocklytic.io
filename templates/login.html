@@ -26,15 +26,18 @@
               </div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
-              <span class="mb-4 text-muted text-center">
-                {% if msg %}
-                  {{ msg | safe }}
-                {% endif %} 
-              </span>
+              
               <div class="text-center text-muted mb-4">
                 <small>Or sign in with credentials</small>
               </div>
-              <form role="form" method="post" action="">
+
+              {% if msg %}
+                <div class="alert alert-warning" role="alert"> 
+                  <span class="alert-inner--text">{{ msg | safe }}</span>
+                </div>
+              {% endif %}
+
+              <form role="form" method="POST" action="{{ url_for('user.login') }}">
 
                 {{ form.hidden_tag() }} 
 
@@ -56,7 +59,9 @@
                   </div>
                 </div>
                 
-                <button type="submit" name="login" class="btn btn-primary shadow-2 mb-4 center">Sign In</button>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary mt-4">Sign In</button>
+                </div>
 
               </form>
             </div>
