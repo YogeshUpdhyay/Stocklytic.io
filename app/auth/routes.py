@@ -83,7 +83,7 @@ def logout():
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return render_template('page-403.html'), 403
+    return redirect(url_for('user.login'))
 
 @bp.errorhandler(403)
 def access_forbidden(error):
