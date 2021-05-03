@@ -1,4 +1,4 @@
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 from flask import Blueprint, render_template, request, redirect, url_for
 
 from .models import User
@@ -72,6 +72,7 @@ def register():
 
 
 @bp.route("/logout")
+@login_required
 def logout():
     # logout a user
     logout_user()
