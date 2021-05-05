@@ -5,6 +5,10 @@ class Config:
     RESTPLUS_MASK_SWAGGER = False
     TEMPLATE_DIR = "templates"
     STATIC_DIR = "static"
+    
+    # oauth2 configuration
+    GOOGLE_CLIENT_ID= os.environ.get("GOOGLE_CLIENT_ID") or "512067544038-g0r87o90n52uilp000d9fhcg8f0tt0j6.apps.googleusercontent.com"
+    GOOGLE_CLIENT_SECRET= os.environ.get("GOOGLE_CLIENT_SECRET") or "uJmqgnbLe1MmFj0KjISfrIMH"
 
     @staticmethod
     def init_app(app):

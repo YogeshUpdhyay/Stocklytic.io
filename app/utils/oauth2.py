@@ -1,27 +1,9 @@
-from authlib.integrations.flask_client import OAuth
-from loginpass import create_flask_blueprint
-from loginpass import Twitter, GitHub, Google
-
-app = Flask(__name__)
-app.config.from_pyfile('config.py')
-
-
-oauth = OAuth(app)
-
-#: you can customize this part
-backends = [Twitter, GitHub, Google]
-
-
-@app.route('/')
-def index():
-    tpl = '<li><a href="/login/{}">{}</a></li>'
-    lis = [tpl.format(b.NAME, b.NAME) for b in backends]
-    return '<ul>{}</ul>'.format(''.join(lis))
-
+from flask import redirect, url_for
+from flask_login import login_user
+from ..auth.models import User
 
 def handle_authorize(remote, token, user_info):
-    return jsonify(user_info)
-
-
-bp = create_flask_blueprint(backends, oauth, handle_authorize)
-app.register_blueprint(bp, url_prefix='')
+    if user_info:
+        user = User.query.filter_by(email = user_info.get("email")).first()
+        login_user(user)
+        return redirect(url_for('dashboard.index'))
