@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from authlib.integrations.flask_client import OAuth
@@ -56,6 +57,8 @@ def create_app(config_name):
 
     # configure OAuth2 
     oauth2(app)
+
+    migrate = Migrate(app, db)
 
     # registering blueprints
     from .auth.routes import bp as auth_blueprint
