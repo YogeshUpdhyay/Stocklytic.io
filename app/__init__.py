@@ -1,9 +1,13 @@
 import os
 from flask import Flask
 from flask_cors import CORS
-from config import config
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from authlib.integrations.flask_client import OAuth
+from loginpass import create_flask_blueprint
+from loginpass import GitHub, Google
+
+from config import config
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -24,6 +28,13 @@ def loginManager(app):
     # intializing login manager
     login_manager.init_app(app)
 
+def oauth2(app):
+    # oauth2 for google and github
+    from .utils.oauth2 import handle_authorize
+    oauth = OAuth(app)
+    bp = create_flask_blueprint([GitHub, Google], oauth, handle_authorize)
+    app.register_blueprint(bp, url_prefix='/oauth2')
+
 def create_app(config_name):
     # initializing app
     appconf = config[config_name]
@@ -42,6 +53,9 @@ def create_app(config_name):
 
     # initializing login manager
     loginManager(app)
+
+    # configure OAuth2 
+    oauth2(app)
 
     # registering blueprints
     from .auth.routes import bp as auth_blueprint
