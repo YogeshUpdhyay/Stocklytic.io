@@ -909,7 +909,8 @@ var SalesChart = (function() {
                 content += '<span class="popover-body-label mr-auto">' + label + '</span>';
               }
 
-              content += '<span class="popover-body-value">$' + yLabel + 'k</span>';
+			  content += `$${yLabel}k`
+			  
               return content;
             }
           }

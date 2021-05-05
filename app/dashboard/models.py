@@ -1,5 +1,5 @@
 from .. import db
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, ForeignKey
 
 class Stock(db.Model):
 
@@ -7,3 +7,4 @@ class Stock(db.Model):
 
     id = Column(Integer, primary_key=True)
     ticker = Column(String, unique=True)
+    userid = Column(Integer, ForeignKey('User.id'))
