@@ -94,20 +94,3 @@ stocks = [
 def index():
     # index page 
     return render_template("index.html", current_user=current_user)
-
-
-@bp.route("/stocks/<id>")
-def stock(id):
-    stock = Stock.query.filter_by(id=id).first()
-    return render_template("stockdetail.html",
-                            current_user=current_user,
-                            stock=stock)
-
-
-@bp.route("/stocks")
-def stocks():
-    stocks = Stock.query.filter_by(userid = current_user.id)
-
-    return render_template("stocks.html", 
-                            current_user=current_user,
-                            stocks=stocks)
