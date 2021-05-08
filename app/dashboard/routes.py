@@ -89,8 +89,27 @@ stocks = [
     }
 ]
 
+cards = [
+    {
+        'title': 'Invested',
+        'value': '&#8377; 350,123',
+    },
+    {
+        'title': 'Current Value',
+        'value': '&#8377; 370,356'
+    },
+    {
+        'title': 'Current Gain',
+        'value': '&#8377; 20,000'
+    },
+    {
+        'title': 'Gain Percent',
+        'value': 3.75
+    }
+]
+
 @bp.route("/")
 @login_required
 def index():
     # index page 
-    return render_template("index.html", current_user=current_user)
+    return render_template("index.html", cards=cards, current_user=current_user)
