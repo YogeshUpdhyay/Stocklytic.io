@@ -7,20 +7,18 @@
 
 {% block content %}
 
-    <!-- Header cards -->
-    {% include 'includes/header-cards.html' %}
+    <!-- Stock filter -->
+    {% include 'includes/header-filter.html' %}
 
     <!-- Page content -->
     <div class="container-fluid mt--6">
 
       <!-- Add Stock -->
-      {% include 'includes/add-stock.html' %}
+      <!-- {% include 'includes/add-stock.html' %} -->
       
       <!-- Graph -->
       {% include 'includes/graph.html' %}
 
-      <!-- Stock -->
-      {% include 'includes/stocklist.html' %}
 
       {% include "includes/footer.html" %}
 
@@ -32,6 +30,7 @@
 {% block javascripts %}
 
   <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
 
 {% endblock javascripts %}

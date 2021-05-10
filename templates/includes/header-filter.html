@@ -1,0 +1,63 @@
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="col-xl">
+            <div class="header-body">
+                <div class="card bg-white">
+                    <div class="row p-4">
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" id="ticker" placeholder="Ticker" aria-placeholder="Ticker">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-daterange datepicker row align-items-center">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <div class="input-group input-group-alternative">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                            </div>
+                                            <input class="form-control" placeholder="Start date" type="text" value="06/18/2020" id="start-date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <div class="input-group input-group-alternative">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                            </div>
+                                            <input class="form-control" data-provide="datepicker" placeholder="End date" type="text" value="06/22/2020" id="end-date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pb-4 pl-4">
+                        <div class="col-sm-6">
+                            <select name="indicators" id="indicator" class="form-control">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 align-items-center">
+                            <label class="custom-toggle">
+                                <input type="checkbox">
+                                <span class="custom-toggle-slider rounded-circle"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row pb-4 pl-4">
+                        <div class="col-xl-4">
+                            <button type="button" class="btn btn-default">
+                                <span class="btn-inner--icon"><i class="ni ni-atom"></i></span>
+                                <span class="btn-inner--text">Submit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
