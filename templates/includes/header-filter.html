@@ -81,9 +81,13 @@
                                     }
                                     
                                     console.log(data);
-                                    $.get("/api/v1/stockdetail", function(data, status){
-                                        console.log(data);
-                                    })
+                                    $.post(
+                                        "/api/v1/stockdetail", 
+                                        data,
+                                        function(data, status){
+                                            console.log(data);
+                                        }
+                                    )
                                 }
                             </script>
                         </div>
