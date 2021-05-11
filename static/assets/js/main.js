@@ -33,7 +33,7 @@ function submitFilter() {
     // Methods
       
     function init($chart) {
-        var salesChart = new Chart($chart, {
+        var stockChart = new Chart($chart, {
             type: 'line',
             options: {
               scales: {
@@ -71,13 +71,15 @@ function submitFilter() {
               }
             },
             data: {
-              labels: ['May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+              labels: ['May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
               datasets: [{
                 label: 'Performance',
                 data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
               }]
             }
         });
+
+        $chart.data('chart', stockChart);
     }
 
     // Events
