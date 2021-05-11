@@ -2,7 +2,8 @@ from flask import Blueprint, jsonify, request
 
 bp = Blueprint("api", __name__, url_prefix="/api/v1")
 
-@bp.route("/stockdetail")
+@bp.route("/stockdetail", methods=["GET", "POST"])
 def stock_detail():
-    pass
+    print(request.data)
+    return jsonify(msg="Success")
 

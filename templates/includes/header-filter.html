@@ -3,7 +3,10 @@
         <div class="col-xl">
             <div class="header-body">
                 <div class="card bg-white">
-                    <div class="row mt-4 ml-4 mr-4">
+                    <div class="row mb-2 ml-4 mt-4">
+                        <h4>Filter</h4>
+                    </div>
+                    <div class="row mt-2 ml-4 mr-4">
                         <div class="col-sm-4">
                             <label>Ticker</label>
                             <input class="form-control" type="text" id="ticker" placeholder="Ticker" aria-placeholder="Ticker">
@@ -47,14 +50,14 @@
                         <div class="col-sm-6">
                             <div><label>Intraday Mode</label></div>
                             <label class="custom-toggle">
-                                <input type="checkbox">
+                                <input type="checkbox" id="intraday-mode">
                                 <span class="custom-toggle-slider rounded-circle"></span>
                             </label>
                         </div>
                     </div>
                     <div class="row ml-4 mt-2 mb-4 mr-4">
                         <div class="col-xl-4">
-                            <button type="button" class="btn btn-default">
+                            <button type="button" class="btn btn-default" onclick="submitFilter()">
                                 <span class="btn-inner--icon"><i class="ni ni-atom"></i></span>
                                 <span class="btn-inner--text">Submit</span>
                             </button>

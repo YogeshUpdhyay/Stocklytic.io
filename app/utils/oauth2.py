@@ -3,6 +3,7 @@ from flask_login import login_user
 from werkzeug.exceptions import ServiceUnavailable
 
 from ..auth.models import User
+from .. import db
 
 def handle_authorize(remote, token, user_info):
     if user_info:
