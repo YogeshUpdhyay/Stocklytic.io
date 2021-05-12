@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -12,6 +13,7 @@ from config import config
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+mail = Mail()
 
 def dbInit(app):
     # initializing database
@@ -28,6 +30,9 @@ def dbInit(app):
 def loginManager(app):
     # intializing login manager
     login_manager.init_app(app)
+
+def mailInit(app):
+    mail.init_app(app)
 
 def oauth2(app):
     # oauth2 for google and github
@@ -54,6 +59,9 @@ def create_app(config_name):
 
     # initializing login manager
     loginManager(app)
+
+    # initializing mail extension
+    mailInit(app)
 
     # configure OAuth2 
     oauth2(app)

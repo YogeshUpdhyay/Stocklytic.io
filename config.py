@@ -22,8 +22,16 @@ class TestConfig(Config):
     SWAGGER_UI_DOC_EXPANSION = 'list'
     RESTPLUS_VALIDATE =True
     RESTPLUS_MASK_SWAGGER = False
-    SQLALCHEMY_DATABASE_URI = "postgresql://root:example@localhost/StockAnalyzerDB"
 
+    SQLALCHEMY_DATABASE_URI = "postgresql://root:example@localhost/StockAnalyzerDB"
+    RESET_EXPIRATION_TIME = 1800
+    MAIL_SERVER = "smtp.gmail.com"
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
+    MAIL_USERNAME = os.environ.get('EMAIL_USER') or ""
+    MAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD') or ""
+    
 class Production(Config):
     pass
 
