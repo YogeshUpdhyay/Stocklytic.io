@@ -3,7 +3,8 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 from .models import User
 from .. import login_manager, db
-from .forms import LoginForm, CreateAccountForm, ForgotPasswordForm
+from .forms import LoginForm, CreateAccountForm, ForgotPasswordForm, ResetPassswordForm
+from ..utils.mail import send_reset_email
 
 bp = Blueprint("user", __name__)
 
@@ -95,9 +96,25 @@ def forgot_password():
             return render_template("forgotpassword.html", form=form, msg="Email not found")
 
         # Send reset email to the user
+        send_reset_email(user)
 
         return render_template("forgotpassword.html", msg="Reset link has been sent to your email id", form=form)
 
+
+@bp.route("/resetpassword/<token>", methods=["GET", "POST"])
+def reset_password(token):
+    if request.method == "GET":
+        form = ResetPassswordForm()
+        return render_template("resetpassword.html", form=form, token=token)
+    else:
+        user = User.verify_reset_token(token)
+        if not user:
+            return redirect(url_for('user.login'))
+
+        user.set_password(request.form['password'])
+        db.session.commit()
+
+        return redirect(url_for('user.login'))
 
 
 ## Errors

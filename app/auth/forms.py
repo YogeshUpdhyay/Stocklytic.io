@@ -16,3 +16,6 @@ class CreateAccountForm(FlaskForm):
 
 class ForgotPasswordForm(FlaskForm):
     email = TextField('Email', id='email-id', validators=[DataRequired()])
+
+class ResetPassswordForm(FlaskForm):
+    password = PasswordField('Password', id='pwd_login' , validators=[DataRequired()])

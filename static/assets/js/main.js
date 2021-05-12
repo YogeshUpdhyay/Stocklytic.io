@@ -25,67 +25,22 @@ function submitFilter() {
             graphData = data;
         }
     )
-      
-    var $chart = $('#chart-sales-dark');
-    
-    console.log($chart)
-      
-    // Methods
-      
-    function init($chart) {
-        var stockChart = new Chart($chart, {
-            type: 'line',
-            options: {
-              scales: {
-                yAxes: [{
-                  gridLines: {
-                    lineWidth: 1,
-                    color: Charts.colors.gray[900],
-                    zeroLineColor: Charts.colors.gray[900]
-                  },
-                  ticks: {
-                    callback: function(value) {
-                      if (!(value % 10)) {
-                        return '$' + value + 'k';
-                      }
-                    }
-                  }
-                }]
-              },
-              tooltips: {
-                callbacks: {
-                  label: function(item, data) {
-                    var label = data.datasets[item.datasetIndex].label || '';
-                    var yLabel = item.yLabel;
-                    var content = '';
-      
-                    if (data.datasets.length > 1) {
-                      content += '<span class="popover-body-label mr-auto">' + label + '</span>';
-                    }
-      
-                    content += `$${yLabel}k`
-                    
-                    return content;
-                  }
-                }
-              }
-            },
-            data: {
-              labels: ['May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-              datasets: [{
-                label: 'Performance',
-                data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
-              }]
-            }
-        });
-
-        $chart.data('chart', stockChart);
-    }
-
-    // Events
-    
-    if ($chart.length) {
-        init($chart);
-    }
 }
-                            
+
+
+var stockChart = (function() {
+  const chart = LightweightCharts.createChart(document.getElementById("chart"), { width: 400, height: 300 });
+  const lineSeries = chart.addLineSeries();
+  lineSeries.setData([
+      { time: '2019-04-11', value: 80.01 },
+      { time: '2019-04-12', value: 96.63 },
+      { time: '2019-04-13', value: 76.64 },
+      { time: '2019-04-14', value: 81.89 },
+      { time: '2019-04-15', value: 74.43 },
+      { time: '2019-04-16', value: 80.01 },
+      { time: '2019-04-17', value: 96.63 },
+      { time: '2019-04-18', value: 76.64 },
+      { time: '2019-04-19', value: 81.89 },
+      { time: '2019-04-20', value: 74.43 },
+  ]);
+})();

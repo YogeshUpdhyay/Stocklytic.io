@@ -1,7 +1,10 @@
 from flask_login import UserMixin
-from .. import db, login_manager
-from sqlalchemy import Column, Integer, String, LargeBinary, ARRAY, ForeignKey
+from sqlalchemy import Column, Integer, String
 from passlib.hash import pbkdf2_sha256
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+from config import TestConfig as config
+from .. import db, login_manager
 
 class User(db.Model, UserMixin):
 
@@ -17,6 +20,20 @@ class User(db.Model, UserMixin):
     
     def set_password(self, password):
         self.password = pbkdf2_sha256.hash(password)
+
+    def generate_reset_token(self):
+        s = Serializer(config.SECRET_KEY, config.RESET_EXPIRATION_TIME)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+
+    @classmethod
+    def verify_reset_token(cls, token):
+        s = Serializer(config.SECRET_KEY)
+        try:
+            user_id = s.loads(token)['user_id']
+        except:
+            return None
+        
+        return cls.query.get(user_id)
 
 @login_manager.user_loader
 def user_loader(id):
