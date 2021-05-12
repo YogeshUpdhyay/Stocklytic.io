@@ -14,17 +14,11 @@
             </div>
             <div class="col">
               <ul class="nav nav-pills justify-content-end">
-                <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"type": "line"}'>
-                  <a class="nav-link py-2 px-3 active" data-toggle="tab">
-                    <span class="d-none d-md-block">Line</span>
-                    <span class="d-md-none">L</span>
-                  </a>
+                <li class="nav-item mr-2 mr-md-0">
+                  <button type="button" class="btn btn-primary">Line</button>
                 </li>
-                <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"type": "candle"}'>
-                  <a class="nav-link py-2 px-3" data-toggle="tab">
-                    <span class="d-none d-md-block">Candle</span>
-                    <span class="d-md-none">C</span>
-                  </a>
+                <li class="nav-item">
+                  <button type="button" class="btn btn-secondary">Candle</button>
                 </li>
               </ul>
             </div>
@@ -32,9 +26,9 @@
         </div>
         <div class="card-body">
           <!-- Chart -->
-          <div class="chart">
+          <div class="chart" id="chart">
             <!-- Chart wrapper -->
-            <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
+            <!-- <canvas id="chart-stock-dark" class="chart-canvas"></canvas> -->
           </div>
         </div>
       </div>
