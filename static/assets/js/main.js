@@ -1,4 +1,8 @@
 
+window.onbeforeunload = function () {
+  localStorage.clear();
+}
+
 function submitFilter() {
     // ticker field validation
     if (document.getElementById("ticker").value == ""){
@@ -41,46 +45,28 @@ function submitFilter() {
 }
 
 function onLineTab() {
-  var chart = $('#chart-stock-dark');
-
-  var lineChart = new Chart(chart, {
-    type: 'line',
-    options: {
-      scales: {
-        yAxes: [{
-          gridLines: {
-            lineWidth: 1,
-            color: Charts.colors.gray[900],
-            zeroLineColor: Charts.colors.gray[900]
-          },
-          ticks: {
-            callback: function(value) {
-              if (!(value % 10)) {
-                return '$' + value + 'k';
-              }
-            }
-          }
-        }]
+  console.log("Rendering chart")
+  try {
+    var options = {
+      chart: {
+        type: 'line'
       },
-      tooltips: {
-        callbacks: {
-          label: function(item, data) {
-            var label = data.datasets[item.datasetIndex].label || '';
-            var yLabel = item.yLabel;
-            var content = '';
-
-            if (data.datasets.length > 1) {
-              content += '<span class="popover-body-label mr-auto">' + label + '</span>';
-            }
-
-            content += '$' + yLabel + 'k';
-            return content;
-          }
-        }
+      series: [{
+        name: 'sales',
+        data: [30,40,35,50,49,60,70,91,125]
+      }],
+      xaxis: {
+        categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
       }
-    },
-    data: JSON.parse(localStorage.getItem('graphData'))
-  });
+    }
+    
+    var chart = new ApexCharts(document.getElementById('chart'), options);
+    
+    chart.render();
+  } catch (e) {
+    console.log(e)
+  }
+  
 
 }
 
