@@ -21,13 +21,16 @@ class Stock:
 
         # making the api request and parsing the data
         response = requests.get(self.base_url, params=params)
+        print(response)
         if response.status_code == 200:
             data = json.loads(response.data)
-            return response.data
+            return data
         else:
+            print(response.status_code)
             return None
 
     def concat_data(self, data, start_date, end_date) -> dict:
+        # parsing data based on the satrt date and end date
         parsed_data = []
         for day, price in data["Time Series (Daily)"].items():
             date = datetime(day)
