@@ -10,6 +10,10 @@ class Config:
     GOOGLE_CLIENT_ID= os.environ.get("GOOGLE_CLIENT_ID") or "512067544038-g0r87o90n52uilp000d9fhcg8f0tt0j6.apps.googleusercontent.com"
     GOOGLE_CLIENT_SECRET= os.environ.get("GOOGLE_CLIENT_SECRET") or "uJmqgnbLe1MmFj0KjISfrIMH"
 
+    # aplha vantage api key
+    API_KEY = "NC3N1N9XE2UASIZM"
+    BASE_URL = "https://alphavantage.co/query"
+
     @staticmethod
     def init_app(app):
         pass
@@ -17,11 +21,6 @@ class Config:
 class TestConfig(Config):
     DEBUG = True
     TESTING = False
-    WTF_CSRF_ENABLED = False
-    ERROR_404_HELP = False
-    SWAGGER_UI_DOC_EXPANSION = 'list'
-    RESTPLUS_VALIDATE =True
-    RESTPLUS_MASK_SWAGGER = False
 
     SQLALCHEMY_DATABASE_URI = "postgresql://root:example@localhost/StockAnalyzerDB"
     RESET_EXPIRATION_TIME = 1800
