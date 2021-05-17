@@ -1,47 +1,35 @@
-from requests.models import Response
-from config import TestConfig as config
-import requests
 import json
+import yfinance as yf
+import requests_cache
 import datetime
+import numpy as np
+
+from config import TestConfig as config
 
 class Stock:
     def __init__(self) -> None:
-        self.base_url = config.BASE_URL
+        self.session = requests_cache.CachedSession('yfinance.cache')
+        self.session.headers['User-agent'] = 'stockliytic.io/cache'
 
-    def get_data(self, symbol, size = "full", function = "TIME_SERIES_DAILY_ADJUSTED"):
-        # get data
+    def get_data(self, ticker):
+        ticker = yf.Ticker(ticker, session=self.session)
+        data = ticker.history(period='3mo')
+        data.reset_index(inplace=True)
+        return data
 
-        # defining parmas for the api request
-        params = {
-            'function': function,
-            'outputsize': size,
-            'symbol': symbol,
-            'apikey': config.API_KEY
-        }
+    def parse_data(self, data, type):
 
-        # making the api request and parsing the data
-        response = requests.get(self.base_url, params=params)
-        print(response)
-        if response.status_code == 200:
-            data = json.loads(response.data)
-            return data
-        else:
-            print(response.status_code)
-            return None
+        parsed_data = list()
 
-    def concat_data(self, data, start_date, end_date) -> dict:
-        # parsing data based on the satrt date and end date
-        parsed_data = []
-        for day, price in data["Time Series (Daily)"].items():
-            date = datetime(day)
-            if date > start_date and date < end_date:
-                parsed_data.append({day: price})
-            
-            if date > end_date:
-                break
+        if type == "line":
+            for index, row in data.iterrows():
+                parsed_data.append({str(row['Date']) : {
+                    'open': row["Open"],
+                    "close": row["Close"],
+                    "high": row["High"],
+                    "low": row["Low"]
+                }})
 
         return parsed_data
-
-    def intraday_data(self, symbol):
-        pass
+        
 
