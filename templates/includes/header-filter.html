@@ -12,7 +12,23 @@
                                 <label>Ticker</label>
                                 <input class="form-control text-uppercase" type="text" id="ticker" placeholder="Ticker" aria-placeholder="Ticker">
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-4">
+                                <label>Indicators</label>
+                                <select name="indicators" id="indicator" class="form-control">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <div><label>Intraday Mode</label></div>
+                                <label class="custom-toggle">
+                                    <input type="checkbox" id="intraday-mode">
+                                    <span class="custom-toggle-slider rounded-circle"></span>
+                                </label>
+                            </div>
+                            <!-- <div class="col-sm-8">
                                 <label>Date Range</label>
                                 <div class="input-daterange datepicker row align-items-center">
                                     <div class="col">
@@ -36,9 +52,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="row mb-2 ml-4 mr-4">
+                        <!-- <div class="row mb-2 ml-4 mr-4">
                             <div class="col-sm-6">
                                 <label>Indicators</label>
                                 <select name="indicators" id="indicator" class="form-control">
@@ -55,7 +71,7 @@
                                     <span class="custom-toggle-slider rounded-circle"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row ml-4 mt-4 mb-4 mr-4">
                             <div class="col-xl-4">
                                 <button type="button" class="btn btn-default" onclick="submitFilter()">

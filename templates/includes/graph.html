@@ -6,11 +6,7 @@
           <div class="row align-items-center">
             <div class="col">
               <h6 class="text-light text-uppercase ls-1 mb-1">Stock Analysis</h6>
-              {% if company %}
-                <h5 class="h3 text-white mb-0">{{ company }}</h5>
-              {% else %}
-                <h5 class="h3 text-white mb-0">Select a ticker and submit</h5>
-              {% endif %}
+              <h5 class="h3 text-white mb-0" id="stock-name">Select a ticker and submit</h5>
             </div>
             <div class="col">
               <ul class="nav nav-pills justify-content-end">
@@ -27,8 +23,6 @@
         <div class="card-body">
           <!-- Chart -->
           <div class="chart" id="chart">
-            <!-- Chart wrapper -->
-            <!-- <canvas id="chart-stock-dark" class="chart-canvas"></canvas> -->
           </div>
         </div>
       </div>

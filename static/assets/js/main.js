@@ -3,7 +3,7 @@ window.onbeforeunload = function () {
   localStorage.clear();
 }
 
-function submitFilter() {
+async function submitFilter() {
     // ticker field validation
     if (document.getElementById("ticker").value == ""){
         document.getElementById("ticker").className = "form-control is-invalid"
@@ -15,35 +15,25 @@ function submitFilter() {
     // graph api call
     let data = {
         ticker: document.getElementById("ticker").value,
-        startDate: document.getElementById("start-date").value,
-        endDate: document.getElementById("end-date").value,
         indicator: document.getElementById("indicator").value,
         intradayMode: document.getElementById("intraday-mode").checked
     }
     
-    let graphData;
-    $.post(
+    await $.post(
         "/api/v1/stockdetail", 
         data,
         function(data, status){
-            graphData = data;
+          if (status == "success") {
+            console.log("here")
+            localStorage.setItem('graphData', data);
+          } 
         }
     )
     
-    graphData = {
-      labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      datasets: [{
-        label: 'Performance',
-        data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
-      }]
-    }
-
-    localStorage.setItem('graphData', JSON.stringify(graphData));
 
     // Initializing line chart
     onLineTab();
 }
-
 
 // Colors
 var colors = {
@@ -72,92 +62,116 @@ var colors = {
   transparent: 'transparent',
 };
 
+function parseData(type) {
+  if (type === 'line') {
+    var parsed_values = [];
+    data = JSON.parse(localStorage.getItem('graphData'));
+    console.log(data)
+    data.forEach(i => {
+      var temp = {
+        x: new Date(i.date).getTime(),
+        y: i.close.toFixed(2)
+      };
+      parsed_values.push(temp);
+    });
+    console.log(parsed_values);
+    return parsed_values;
+  }
+
+  if (type == 'candlestick') {
+    var parsed_values = []
+    data = JSON.parse(localStorage.getItem('graphData'));
+    data.forEach(i => {
+      var temp = {
+        x: new Date(i.date).getTime(),
+        y: [i.open.toFixed(2), i.high.toFixed(2), i.low.toFixed(2), i.close.toFixed(2)]
+      };
+      parsed_values.push(temp);
+    });
+    console.log(parsed_values);
+    return parsed_values;
+  }
+}
+
 
 function onLineTab() {
   try {
     var options = {
       chart: {
         type: 'line',
-        stacked: false,
         height: 350,
-        zoom: {
-          type: 'x',
+        sparkline: {
           enabled: true,
-          autoScaleYaxis: true
-        },
-        toolbar: {
-          auto
         }
+      },
+      colors: [colors.gray[200]],
+      dataLabels: {
+        enabled: false
+      },
+      markers: {
+        size: 0,
       },
       stroke: {
         curve: 'smooth',
       },
       series: [{
-        name: 'sales',
-        data: [30,40,35,50,49,60,70,91,125]
+        name: 'Close Price',
+        data: parseData('line')
       }],
       xaxis: {
-        categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+        type: 'datetime'
       }
     }
     
-    var chart = new ApexCharts(document.getElementById('chart'), options);
-    
+    var chartDiv = document.getElementById('chart');
+    chartDiv.innerHTML = null;
+    var chart = new ApexCharts(chartDiv, options);
     chart.render();
+    
   } catch (e) {
     console.log(e)
   }
   
-
 }
 
 function onCandleTab() {
-  var chart = $('#chart-stock-dark');
-  var barCount = 60;
-  var initialDateStr = '01 Apr 2017 00:00 Z';
+  try {
+    var options = {
+      chart: {
+        type: 'candlestick',
+        height: 350,
+        sparkline: {
+          enabled: true,
+        },
+      },
+      series: [{
+        data: parseData('candlestick')
+      }],
+      plotOptions: {
+        candlestick: {
+          colors: {
+            upward: colors.gray[200],
+            downward: colors.theme.primary
+          }
+        }
+      },
+      xaxis: {
+        type: 'datetime'
+      },
+      yaxis: {
+        tooltip: {
+          enabled: true
+        }
+      },
+    }
+    
+    var chartDiv = document.getElementById('chart');
+    chartDiv.innerHTML = null;
+    var chart = new ApexCharts(chartDiv, options);
+    chart.render();
 
-  var candlechart = new Chart(chart, {
-    type: 'candlestick',
-    data: {
-      datasets: [{
-        label: 'CHRT - Chart.js Corporation',
-        data: getRandomData(initialDateStr, barCount)
-      }]
-    }
-  });
-  
-  var getRandomInt = function(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  };
-  
-  function randomNumber(min, max) {
-    return Math.random() * (max - min) + min;
+  } catch (error) {
+    console.log(error);
   }
   
-  function randomBar(date, lastClose) {
-    var open = +randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2);
-    var close = +randomNumber(open * 0.95, open * 1.05).toFixed(2);
-    var high = +randomNumber(Math.max(open, close), Math.max(open, close) * 1.1).toFixed(2);
-    var low = +randomNumber(Math.min(open, close) * 0.9, Math.min(open, close)).toFixed(2);
-    return {
-      x: date.valueOf(),
-      o: open,
-      h: high,
-      l: low,
-      c: close
-    };
-  
-  }
-  
-  function getRandomData(dateStr, count) {
-    var date = luxon.DateTime.fromRFC2822(dateStr);
-    var data = [randomBar(date, 30)];
-    while (data.length < count) {
-      date = date.plus({days: 1});
-      if (date.weekday <= 5) {
-        data.push(randomBar(date, data[data.length - 1].c));
-      }
-    }
-    return data;
-  }
 }
