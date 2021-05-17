@@ -35,7 +35,6 @@ async function submitFilter() {
     onLineTab();
 }
 
-
 // Colors
 var colors = {
   gray: {
@@ -78,6 +77,20 @@ function parseData(type) {
     console.log(parsed_values);
     return parsed_values;
   }
+
+  if (type == 'candlestick') {
+    var parsed_values = []
+    data = JSON.parse(localStorage.getItem('graphData'));
+    data.forEach(i => {
+      var temp = {
+        x: new Date(i.date).getTime(),
+        y: [i.open.toFixed(2), i.high.toFixed(2), i.low.toFixed(2), i.close.toFixed(2)]
+      };
+      parsed_values.push(temp);
+    });
+    console.log(parsed_values);
+    return parsed_values;
+  }
 }
 
 
@@ -86,21 +99,9 @@ function onLineTab() {
     var options = {
       chart: {
         type: 'line',
-        stacked: false,
         height: 350,
-        zoom: {
-          type: 'x',
-          enabled: true,
-          autoScaleYaxis: true
-        },
-        toolbar: {
-          autoSelected: 'zoom'
-        },
         sparkline: {
           enabled: true,
-        },
-        tooltip: {
-          enabled: false
         }
       },
       colors: [colors.gray[200]],
@@ -122,9 +123,11 @@ function onLineTab() {
       }
     }
     
-    var chart = new ApexCharts(document.getElementById('chart'), options);
-    
+    var chartDiv = document.getElementById('chart');
+    chartDiv.innerHTML = null;
+    var chart = new ApexCharts(chartDiv, options);
     chart.render();
+    
   } catch (e) {
     console.log(e)
   }
@@ -132,12 +135,43 @@ function onLineTab() {
 }
 
 function onCandleTab() {
-  var options = {
-    chart: {
-      type: 'candlestick',
-    },
-    series: {
-      data: parseData('candlestick')
+  try {
+    var options = {
+      chart: {
+        type: 'candlestick',
+        height: 350,
+        sparkline: {
+          enabled: true,
+        },
+      },
+      series: [{
+        data: parseData('candlestick')
+      }],
+      plotOptions: {
+        candlestick: {
+          colors: {
+            upward: colors.gray[200],
+            downward: colors.theme.primary
+          }
+        }
+      },
+      xaxis: {
+        type: 'datetime'
+      },
+      yaxis: {
+        tooltip: {
+          enabled: true
+        }
+      },
     }
+    
+    var chartDiv = document.getElementById('chart');
+    chartDiv.innerHTML = null;
+    var chart = new ApexCharts(chartDiv, options);
+    chart.render();
+
+  } catch (error) {
+    console.log(error);
   }
+  
 }
