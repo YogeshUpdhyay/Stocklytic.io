@@ -11,6 +11,6 @@ stock = Stock()
 def stock_detail():
     ticker = request.form["ticker"]
     data = stock.get_data(ticker)
-    graph_data = stock.parse_data(data, 'line')
+    graph_data = stock.parse_data(data)
     return json.dumps(graph_data)
 

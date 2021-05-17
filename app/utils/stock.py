@@ -17,18 +17,18 @@ class Stock:
         data.reset_index(inplace=True)
         return data
 
-    def parse_data(self, data, type):
+    def parse_data(self, data):
 
         parsed_data = list()
 
-        if type == "line":
-            for index, row in data.iterrows():
-                parsed_data.append({str(row['Date']) : {
-                    'open': row["Open"],
-                    "close": row["Close"],
-                    "high": row["High"],
-                    "low": row["Low"]
-                }})
+        for index, row in data.iterrows():
+            parsed_data.append({
+                'date': str(row['Date']),
+                'open': row["Open"],
+                "close": row["Close"],
+                "high": row["High"],
+                "low": row["Low"]
+            })
 
         return parsed_data
         
