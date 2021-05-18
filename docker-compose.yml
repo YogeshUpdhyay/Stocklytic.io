@@ -3,15 +3,15 @@ version: '3'
 services: 
 
   # backend app
-  # app:
-  #   build: .
-  #   image: yogeshh2021/stock-analyzer:v1
-  #   command: python main.py
-  #   volumes:
-  #     - .:/code
-  #   ports: 
-  #     - 5055:5055
-  #   restart: always
+  app:
+    build: .
+    image: yogeshh2021/stock-analyzer:v1
+    command: python main.py
+    volumes:
+      - .:/code
+    ports: 
+      - 5055:5055
+    restart: always
 
   # database
   db:

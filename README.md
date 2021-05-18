@@ -1,6 +1,8 @@
-# Stock Analyzer
+# Stocklytic.io
 ---
-<!-- <img></img> -->
+Stocklytic.io is a stock analysis platform which provides analytical graphs and technical analysis indicator charts making stock market understanding easy for everyone. 
+
+<img src="https://github.com/YogeshUpdhyay/Stock-Analytics/tree/main/img/dashboard.png"></img>
 
 ### Setup
 - For running on host machine 
