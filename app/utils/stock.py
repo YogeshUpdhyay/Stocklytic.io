@@ -1,7 +1,6 @@
 import json
 import yfinance as yf
 import requests_cache
-import datetime
 import numpy as np
 
 from config import TestConfig as config
@@ -24,6 +23,8 @@ class Stock:
 
         if "Indicator" in data.columns:
             indicator = True
+
+        data = data.dropna(axis=0)
 
         for index, row in data.iterrows():
             temp = {
