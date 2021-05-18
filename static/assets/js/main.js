@@ -24,7 +24,8 @@ async function submitFilter() {
         data,
         function(data, status){
           if (status == "success") {
-            console.log("here")
+            const name = JSON.parse(data).name;
+            document.getElementById('stock-name').innerHTML = name;
             localStorage.setItem('graphData', data);
           } 
         }
@@ -66,29 +67,39 @@ function parseData(type) {
   if (type === 'line') {
     var parsed_values = [];
     data = JSON.parse(localStorage.getItem('graphData'));
-    console.log(data)
-    data.forEach(i => {
+    data.graph_data.forEach(i => {
       var temp = {
         x: new Date(i.date).getTime(),
         y: i.close.toFixed(2)
       };
       parsed_values.push(temp);
     });
-    console.log(parsed_values);
     return parsed_values;
   }
 
   if (type == 'candlestick') {
     var parsed_values = []
     data = JSON.parse(localStorage.getItem('graphData'));
-    data.forEach(i => {
+    data.graph_data.forEach(i => {
       var temp = {
         x: new Date(i.date).getTime(),
         y: [i.open.toFixed(2), i.high.toFixed(2), i.low.toFixed(2), i.close.toFixed(2)]
       };
       parsed_values.push(temp);
     });
-    console.log(parsed_values);
+    return parsed_values;
+  }
+
+  if (type == 'indicator') {
+    var parsed_values = []
+    data = JSON.parse(localStorage.getItem('graphData'));
+    data.graph_data.forEach(i => {
+      var temp = {
+        x: new Date(i.date).getTime(),
+        y: [i.indicator.toFixed(2)]
+      };
+      parsed_values.push(temp);
+    });
     return parsed_values;
   }
 }
@@ -96,6 +107,20 @@ function parseData(type) {
 
 function onLineTab() {
   try {
+    var data = JSON.parse(localStorage.getItem('graphData'));
+    var series = [];
+    if ( data.indicator != null ){
+      series.push({
+        name: data.indicator,
+        data: parseData('indicator')
+      });
+    }
+
+    series.push({
+      name: "Close Price",
+      data: parseData('line')
+    });
+
     var options = {
       chart: {
         type: 'line',
@@ -104,7 +129,7 @@ function onLineTab() {
           enabled: true,
         }
       },
-      colors: [colors.gray[200]],
+      colors: [colors.gray[200], colors.theme.primary],
       dataLabels: {
         enabled: false
       },
@@ -114,10 +139,7 @@ function onLineTab() {
       stroke: {
         curve: 'smooth',
       },
-      series: [{
-        name: 'Close Price',
-        data: parseData('line')
-      }],
+      series: series,
       xaxis: {
         type: 'datetime'
       }
@@ -136,17 +158,30 @@ function onLineTab() {
 
 function onCandleTab() {
   try {
+
+    var data = JSON.parse(localStorage.getItem('graphData'));
+    var series = [];
+    if ( data.indicator != null ){
+      series.push({
+        type: 'line',
+        name: data.indicator,
+        data: parseData('indicator')
+      });
+    }
+
+    series.push({
+      type: 'candlestick',
+      data: parseData('candlestick')
+    });
+
     var options = {
       chart: {
-        type: 'candlestick',
         height: 350,
         sparkline: {
           enabled: true,
-        },
+        }
       },
-      series: [{
-        data: parseData('candlestick')
-      }],
+      series: series,
       plotOptions: {
         candlestick: {
           colors: {
@@ -156,15 +191,34 @@ function onCandleTab() {
         }
       },
       xaxis: {
-        type: 'datetime'
-      },
-      yaxis: {
-        tooltip: {
-          enabled: true
-        }
-      },
+        type: 'datetime',
+      }
     }
     
+    if (data.indicator == null) {
+      options.chart.type = 'candlestick'
+    } else {
+      options.tooltip = {
+        shared: true,
+        custom: [function({seriesIndex, dataPointIndex, w}) {
+          return ''
+        }, function({ seriesIndex, dataPointIndex, w }) {
+          var o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+          var h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
+          var l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
+          var c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+          return (
+            `Open: ${o}\nHigh: ${h}\nLow: ${l}\nClose: ${c}`
+          )
+        }]
+      }
+
+      options.stroke = {
+        width: [3, 1]
+      }
+    }
+
+
     var chartDiv = document.getElementById('chart');
     chartDiv.innerHTML = null;
     var chart = new ApexCharts(chartDiv, options);
