@@ -96,6 +96,15 @@ function parseData(type) {
 
 function onLineTab() {
   try {
+    var data = JSON.parse(localStorage.getItem('graphData'));
+    var series = [];
+    if ( data.indicator != null ){
+      series.push(parseData('indicator'));
+    }
+
+    series.push(parseData('line'));
+
+
     var options = {
       chart: {
         type: 'line',
@@ -114,10 +123,7 @@ function onLineTab() {
       stroke: {
         curve: 'smooth',
       },
-      series: [{
-        name: 'Close Price',
-        data: parseData('line')
-      }],
+      series: series,
       xaxis: {
         type: 'datetime'
       }

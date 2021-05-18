@@ -1,4 +1,5 @@
 import json
+from requests.sessions import session
 import yfinance as yf
 import requests_cache
 import numpy as np
@@ -9,6 +10,10 @@ class Stock:
     def __init__(self) -> None:
         self.session = requests_cache.CachedSession('yfinance.cache')
         self.session.headers['User-agent'] = 'stockliytic.io/cache'
+
+    def get_info(self, ticker):
+        ticker = yf.Ticker(ticker, session=self.session)
+        return ticker.info["shortName"]
 
     def get_data(self, ticker):
         ticker = yf.Ticker(ticker, session=self.session)
