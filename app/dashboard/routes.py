@@ -1,9 +1,7 @@
 import os
 import json
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template
 from flask_login import current_user, login_required
-
-from .models import Stock
 
 bp = Blueprint("dashboard", __name__)
 
