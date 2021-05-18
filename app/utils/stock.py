@@ -20,15 +20,24 @@ class Stock:
     def parse_data(self, data):
 
         parsed_data = list()
+        indicator = False
+
+        if "Indicator" in data.columns:
+            indicator = True
 
         for index, row in data.iterrows():
-            parsed_data.append({
+            temp = {
                 'date': str(row['Date']),
                 'open': row["Open"],
                 "close": row["Close"],
                 "high": row["High"],
                 "low": row["Low"]
-            })
+            }
+
+            if indicator:
+                temp["indicator"] = row['Indicator']
+
+            parsed_data.append(temp)
 
         return parsed_data
         

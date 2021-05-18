@@ -16,7 +16,7 @@ def index():
     indicators = json.load(open(os.path.join(os.getcwd(), 'app/utils/static/indicators.json')))
 
     return render_template(
-        "index.html", 
+        "index.html",
         current_user=current_user, 
         indicators=indicators
     )
