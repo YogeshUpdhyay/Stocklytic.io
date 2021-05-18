@@ -32,7 +32,7 @@ def stock_detail():
     try:
         if indicator:
             indicator_function = getattr(ta, indicator)
-            result = indicator_function(data["Close"], timeperiod=2)
+            result = indicator_function(data["Close"], timeperiod=5)
             data["Indicator"] = result
 
             response["indicator"] = get_indicator_desc(indicator)

@@ -2,7 +2,6 @@ import json
 from requests.sessions import session
 import yfinance as yf
 import requests_cache
-import numpy as np
 
 from config import TestConfig as config
 
