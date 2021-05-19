@@ -7,8 +7,8 @@ class Config:
     STATIC_DIR = "static"
     
     # oauth2 configuration
-    GOOGLE_CLIENT_ID= os.environ.get("GOOGLE_CLIENT_ID") or "512067544038-g0r87o90n52uilp000d9fhcg8f0tt0j6.apps.googleusercontent.com"
-    GOOGLE_CLIENT_SECRET= os.environ.get("GOOGLE_CLIENT_SECRET") or "uJmqgnbLe1MmFj0KjISfrIMH"
+    GOOGLE_CLIENT_ID= os.environ.get("GOOGLE_CLIENT_ID") or ""
+    GOOGLE_CLIENT_SECRET= os.environ.get("GOOGLE_CLIENT_SECRET") or ""
 
     # aplha vantage api key
     API_KEY = "NC3N1N9XE2UASIZM"
