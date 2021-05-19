@@ -10,10 +10,6 @@ class Config:
     GOOGLE_CLIENT_ID= os.environ.get("GOOGLE_CLIENT_ID") or ""
     GOOGLE_CLIENT_SECRET= os.environ.get("GOOGLE_CLIENT_SECRET") or ""
 
-    # aplha vantage api key
-    API_KEY = "NC3N1N9XE2UASIZM"
-    BASE_URL = "https://alphavantage.co/query"
-
     @staticmethod
     def init_app(app):
         pass
