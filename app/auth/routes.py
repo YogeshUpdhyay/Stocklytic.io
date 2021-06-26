@@ -42,8 +42,8 @@ def register():
         return render_template("register.html", form=form)
     else:
         
-        username  = request.form['username']
-        email     = request.form['email']
+        email = request.form['email']
+        username = request.form['username']
 
         # Check usename exists
         user = User.query.filter_by(username=username).first()

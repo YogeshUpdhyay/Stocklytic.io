@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     password = Column(String)
 
     def check_password(self, password):
-        return pbkdf2_sha256.verify(password, bytes(self.password))
+        return pbkdf2_sha256.verify(password, self.password)
     
     def set_password(self, password):
         self.password = pbkdf2_sha256.hash(password)
