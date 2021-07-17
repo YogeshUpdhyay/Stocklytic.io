@@ -1,10 +1,12 @@
+
 # Stocklytic.io
 ---
 Stocklytic.io is a stock analysis platform which provides analytical graphs and technical analysis indicator charts making stock market understanding easy for everyone. 
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 
-<img src="https://github.com/YogeshUpdhyay/Stock-Analytics/blob/main/img/dashboard.png"></img>
+
+https://user-images.githubusercontent.com/53992168/126048221-2315b5a5-5ffa-4558-a5a7-a272bda7d783.mp4
 
 ### Setup
 - For running on host machine 
